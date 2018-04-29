@@ -1,0 +1,397 @@
+swagger: '2.0'
+info:
+  description: Bank of the future API
+  version: 1.0.0
+  title: Bank of the future API
+  license:
+    name: Licensed by Harman
+securityDefinitions: 
+  token:
+    type: apiKey
+    name: Authorization
+    in: header
+    description: Should be put in Authorization header and prefixed with schema (Bearer). Example - "Bearer %token%"
+basePath: /
+paths:
+  /appointment/reasons:
+    get:
+      tags:
+        - appointment general
+      summary: Get list of available appointment reasons
+      responses:
+        200:
+          description: List of reasons
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/AppointmentReason'
+  /appointment/offices:
+    get:
+      tags:
+        - appointment general
+      summary: Get list of available appointment offices
+      responses:
+        200:
+          description: List of offices
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/AppointmentOffice'
+  /signup:
+    post:
+      tags:
+        - web-only
+        - auth
+      summary: Signup user for an appointment
+      description: >
+        Creates the user and assigns an appointment. 
+        If user already exists, only assigns a new appointment.
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/SignupRequest'
+      responses:
+        204:
+          description: Signed up
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Error'
+  /signin:
+    post:
+      tags:
+        - auth
+      summary: Sign in
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/SigninRequest'
+      responses:
+        200:
+          description: Signed in
+          schema:
+            $ref: '#/definitions/SigninResponse'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Error'
+  /user/appointments:
+    post:
+      tags:
+        - user appointment
+      security:
+        - token: []
+      summary: Create a new appointment
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/Appointment'
+      responses:
+        200:
+          description: Appointment creates successfully
+          schema:
+            $ref: '#/definitions/Appointment'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Error'
+  /user/info:
+    get:
+      tags:
+        - user appointment
+      security:
+        - token: []
+      summary: Get current user info and status
+      responses:
+        200:
+          description: User info
+          schema:
+            $ref: '#/definitions/UserInfo'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Error'
+  /user/appointments/current:
+    get:
+      tags:
+        - user appointment
+      security:
+        - token: []
+      summary: Get current appointment
+      responses:
+        200:
+          description: Updated appointment
+          schema:
+            $ref: '#/definitions/Appointment'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Error'
+    put:
+      tags:
+        - user appointment
+      security:
+        - token: []
+      summary: Updates current appointment
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/Appointment'
+      responses:
+        200:
+          description: Updated appointment
+          schema:
+            $ref: '#/definitions/Appointment'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Error'
+    delete:
+      tags:
+        - user appointment
+      security:
+        - token: []
+      summary: Cancels current appointment
+      responses:
+        204:
+          description: Deleted successfully
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Error'
+  /user/appointments/current/checkin:
+    post:
+      tags:
+        - user appointment
+      security:
+        - token: []
+      summary: Check in current appointment
+      responses:
+        200:
+          description: Updated appointment
+          schema:
+            $ref: '#/definitions/Appointment'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Error'
+  /user/appointments/current/queue:
+    get:
+      tags:
+        - user appointment
+      security:
+        - token: []
+      summary: Get queue status for current appointment
+      responses:
+        200:
+          description: Appointment queue
+          schema:
+            $ref: '#/definitions/AppointmentQueue'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Error'
+  /office/queue:
+    get:
+      tags:
+        - office
+      summary: Get queue for current office
+      responses:
+        200:
+          description: OfficeQueue
+          schema:
+            $ref: '#/definitions/AppointmentQueue'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Error'
+  /signage/identification:
+    post:
+      tags:
+        - signage
+      summary: Get signage details for recognized client
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/SignageIdentificationRequest'
+      responses:
+        200:
+          description: Signage client details
+          schema:
+            $ref: '#/definitions/SignageIdentification'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  Error:
+    required:
+      - message
+    properties:
+      message:
+        type: string
+  TimeString:
+    type: string
+    example: '7.00PM'
+    pattern: ^\d{1,2}\.\d{2}(AM|PM)$
+  PhoneNumber:
+    type: string
+    description: If country code is not present, assumed +1
+    pattern: ^(\+\d)?\d{10}$
+  AppointmentReason:
+    type: object
+    required:
+      - id
+      - text
+    properties:
+      id:
+        type: string
+      text:
+        type: string
+  SignupRequest:
+    type: object
+    required:
+      - name
+      - reasonId
+      - phoneNumber
+    properties:
+      name:
+        type: string
+      appointmentReasonId:
+        type: string
+      phoneNumber:
+        $ref: '#/definitions/PhoneNumber'
+  SigninRequest:
+    type: object
+    required:
+      - phoneNumber
+    properties:
+      phoneNumber:
+        $ref: '#/definitions/PhoneNumber'
+  SigninResponse:
+    type: object
+    required:
+      - token
+    properties:
+      token:
+        type: string
+  AppointmentOffice:
+    type: object
+    required:
+      - id
+      - name
+      - address
+      - location
+      - openTime
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+        example: BOTF Downtown
+      address:
+        type: string
+        example: '1556 Broadway, sute 416\nNew York, NY, 10120, USA'
+      location:
+        $ref: '#/definitions/Location'
+      openTime:
+        type: string
+        example: 'Today till 7.00PM'
+  Location:
+    type: object
+    required:
+      - longitude
+      - latitude
+    properties:
+      longitude:
+        type: number
+        example: -122.083739
+      latitude:
+        type: number
+        example: 37.423021
+  Appointment:
+    type: object
+    required:
+      - reasonId
+      - officeId
+    properties:
+      reasonId:
+        type: string
+      officeId:
+        type: string
+      status:
+        $ref: '#/definitions/AppointmentStatus'
+  AppointmentStatus:
+    type: string
+    enum:
+      - ASSIGNED
+      - CHECKED_IN
+      - IN_SERVICE
+      - FINISHED
+  UserInfo:
+    type: object
+    required:
+      - name
+      - phoneNumber
+    properties:
+      name:
+        type: string
+      phoneNumber:
+        $ref: '#/definitions/PhoneNumber'
+      currentAppointment:
+        description: Either ASSINGED or CHECKED_IN appointment if exists
+        $ref: '#/definitions/Appointment'
+  AppointmentQueue:
+    type: object
+    required:
+      - clients
+    properties:
+      clients:
+        type: array
+        items:
+          $ref: '#/definitions/AppointmentQueueClient'
+  AppointmentQueueClient:
+    type: object
+    required:
+      - id
+    properties:
+      id:
+        type: string
+        example: B006
+      window:
+        type: string
+        example: 5
+      isCurrentUser:
+        type: boolean
+  SignageIdentificationRequest:
+    type: object
+    required:
+      - phoneNumber
+    properties:
+      phoneNumber:
+        $ref: '#/definitions/PhoneNumber'
+  SignageIdentification:
+    type: object
+    properties:
+      client:
+        $ref: '#/definitions/SignageIdentificationClient'
+  SignageIdentificationClient:
+    type: object
+    required:
+      - name
+      - phoneNumber
+    properties:
+      name:
+        type: string
+      phoneNumber:
+        $ref: '#/definitions/PhoneNumber'
