@@ -1,0 +1,29 @@
+[
+    {
+        "name": "BOTF South",
+        "address": "1556 Broadway, sute 416\nNew York, NY, 10120, USA",
+        "location": {
+            "longitude": 44.0452984,
+            "latitude": 56.3044765
+        },
+        "openTime": "Today till 7.00PM"
+    },
+    {
+        "name": "BOTF North",
+        "address": "1556 Broadway, sute 416\nNew York, NY, 10120, USA",
+        "location": {
+            "longitude": 44.0452984,
+            "latitude": 56.3044765
+        },
+        "openTime": "Today till 7.00PM"
+    },
+    {
+        "name": "BOTF Downtown",
+        "address": "1556 Broadway, sute 416\nNew York, NY, 10120, USA",
+        "location": {
+            "longitude": 44.0452984,
+            "latitude": 56.3044765
+        },
+        "openTime": "Today till 7.00PM"
+    }
+]

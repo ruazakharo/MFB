@@ -235,6 +235,7 @@ paths:
             $ref: '#/definitions/Error'
 definitions:
   Error:
+    type: object
     required:
       - message
     properties:
