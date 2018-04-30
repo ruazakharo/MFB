@@ -91,7 +91,7 @@ paths:
           name: body
           required: true
           schema:
-            $ref: '#/definitions/Appointment'
+            $ref: '#/definitions/AppointmentRequest'
       responses:
         200:
           description: Appointment creates successfully
@@ -144,7 +144,7 @@ paths:
           name: body
           required: true
           schema:
-            $ref: '#/definitions/Appointment'
+            $ref: '#/definitions/AppointmentRequest'
       responses:
         200:
           description: Updated appointment
@@ -241,10 +241,6 @@ definitions:
     properties:
       message:
         type: string
-  TimeString:
-    type: string
-    example: '7.00PM'
-    pattern: ^\d{1,2}\.\d{2}(AM|PM)$
   PhoneNumber:
     type: string
     description: If country code is not present, assumed +1
@@ -320,7 +316,7 @@ definitions:
       latitude:
         type: number
         example: 37.423021
-  Appointment:
+  AppointmentRequest:
     type: object
     required:
       - reasonId
@@ -330,8 +326,25 @@ definitions:
         type: string
       officeId:
         type: string
-      status:
-        $ref: '#/definitions/AppointmentStatus'
+  Appointment:
+    type: object
+    required:
+      - id
+      - reason
+      - office
+      - date
+      - openTime
+    properties:
+      id:
+        type: string
+      reason:
+        $ref: '#/definitions/AppointmentReason'
+      office:
+        $ref: '#/definitions/AppointmentOffice'
+      date:
+        type: string
+      time:
+        type: string
   AppointmentStatus:
     type: string
     enum:

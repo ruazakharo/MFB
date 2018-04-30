@@ -4,8 +4,6 @@ export interface Error {
     message: string;
 }
 
-export type TimeString = string;
-
 export type PhoneNumber = string;
 
 export interface AppointmentReason {
@@ -40,10 +38,17 @@ export interface Location {
     latitude: number;
 }
 
-export interface Appointment {
+export interface AppointmentRequest {
     reasonId: string;
     officeId: string;
-    status?: AppointmentStatus;
+}
+
+export interface Appointment {
+    id: string;
+    reason: AppointmentReason;
+    office: AppointmentOffice;
+    date: string;
+    time?: string;
 }
 
 export type AppointmentStatus = string;
