@@ -1,0 +1,7 @@
+interface User {
+    id: string;
+    name: string;
+    phoneNumber: string;
+}
+
+export default User;

@@ -11,6 +11,7 @@ securityDefinitions:
     name: Authorization
     in: header
     description: Should be put in Authorization header and prefixed with schema (Bearer). Example - "Bearer %token%"
+    x-authorize: ./auth-token.js
 basePath: /
 paths:
   /appointment/reasons:
