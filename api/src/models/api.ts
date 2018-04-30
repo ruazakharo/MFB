@@ -45,13 +45,19 @@ export interface AppointmentRequest {
 
 export interface Appointment {
     id: string;
+    status: AppointmentStatus;
     reason: AppointmentReason;
     office: AppointmentOffice;
     date: string;
     time?: string;
 }
 
-export type AppointmentStatus = string;
+export enum AppointmentStatus {
+    ASSIGNED = <any>'ASSIGNED',
+    CHECKED_IN = <any>'CHECKED_IN',
+    IN_SERVICE = <any>'IN_SERVICE',
+    FINISHED = <any>'FINISHED'
+}
 
 export interface UserInfo {
     name: string;
@@ -75,10 +81,18 @@ export interface SignageIdentificationRequest {
 
 export interface SignageIdentification {
     client?: SignageIdentificationClient;
+    ad?: SignageAdvertisment;
 }
 
 export interface SignageIdentificationClient {
     name: string;
     phoneNumber: PhoneNumber;
+}
+
+export interface SignageAdvertisment {
+    id: string;
+    shortText: string;
+    fullText: string;
+    pictureUrl: string;
 }
 

@@ -10,6 +10,14 @@ class UserDAO extends BaseDAO<User> {
     constructor() {
         super(logger, 'users');
     }
+
+    getByPhoneNumber(phoneNumber: string) {
+        return this.getOne({
+            filter: {
+                phoneNumber
+            }
+        });
+    }
 }
 
 const instance = new UserDAO();

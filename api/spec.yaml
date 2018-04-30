@@ -331,6 +331,7 @@ definitions:
     type: object
     required:
       - id
+      - status
       - reason
       - office
       - date
@@ -338,6 +339,8 @@ definitions:
     properties:
       id:
         type: string
+      status:
+        $ref: '#/definitions/AppointmentStatus'
       reason:
         $ref: '#/definitions/AppointmentReason'
       office:
@@ -348,6 +351,7 @@ definitions:
         type: string
   AppointmentStatus:
     type: string
+    x-ts-enum: AppointmentStatus
     enum:
       - ASSIGNED
       - CHECKED_IN
@@ -400,6 +404,8 @@ definitions:
     properties:
       client:
         $ref: '#/definitions/SignageIdentificationClient'
+      ad:
+        $ref: '#/definitions/SignageAdvertisment'
   SignageIdentificationClient:
     type: object
     required:
@@ -410,3 +416,19 @@ definitions:
         type: string
       phoneNumber:
         $ref: '#/definitions/PhoneNumber'
+  SignageAdvertisment:
+    type: object
+    required:
+      - id
+      - shortText
+      - fullText
+      - pictureUrl
+    properties:
+      id:
+        type: string
+      shortText:
+        type: string
+      fullText:
+        type: string
+      pictureUrl:
+        type: string

@@ -19,6 +19,10 @@ const BEARER_PREFIX = 'Bearer ';
 async function verifyAuthorizationHeader(req: Express.Request): Promise<TokenService.TokenPayload> {
     const authHeader = req.get('Authorization');
 
+    if (!authHeader) {
+        throw new NotAuthorizedError('Missing authorization token');
+    }
+
     if (!_.startsWith(authHeader, BEARER_PREFIX)) {
         throw new NotAuthorizedError('Token should be prefixed with auth type');
     }
