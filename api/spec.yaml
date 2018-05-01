@@ -357,6 +357,7 @@ definitions:
       - CHECKED_IN
       - IN_SERVICE
       - FINISHED
+      - CANCELLED
   UserInfo:
     type: object
     required:

@@ -56,7 +56,8 @@ export enum AppointmentStatus {
     ASSIGNED = <any>'ASSIGNED',
     CHECKED_IN = <any>'CHECKED_IN',
     IN_SERVICE = <any>'IN_SERVICE',
-    FINISHED = <any>'FINISHED'
+    FINISHED = <any>'FINISHED',
+    CANCELLED = <any>'CANCELLED'
 }
 
 export interface UserInfo {

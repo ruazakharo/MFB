@@ -78,6 +78,6 @@ export async function getUserInfo(userId: string): Promise<API.UserInfo> {
     return {
         name: user.name,
         phoneNumber: user.phoneNumber,
-        currentAppointment: undefined
+        currentAppointment: await AppointmentService.tryGetCurrentAppointment(userId)
     };
 }
