@@ -1,0 +1,33 @@
+.supportMenuContainer {
+    display: flex;
+    flex-direction: row;
+    height: 26px;
+    background: #056498;
+    opacity: 0.4;
+    justify-content: space-around;
+}
+
+.leftSupportMenu {
+    margin: 0;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.rightSupportMenu {
+    margin: 0;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.supportMenuContainer a {
+    /* font-family: Gotham;  */
+    font-size: 12px;
+    text-align: center;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 0px 10px 0px 10px;
+}

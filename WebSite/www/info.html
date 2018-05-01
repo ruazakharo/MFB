@@ -1,0 +1,60 @@
+<div class="newsBlock blockStyle">
+    <span class="boxTtitle additionalPadding">News</span>
+    <br>
+    <br>
+    <div class="listItem">
+        <img src="images/ellipse.svg">
+        <span>BOTF presents mobile application for                            registering appointments to the bank</span>
+        <br>
+        <span class="dateClass">April 27</span>
+    </div>
+    <br>
+    <div class="listItem">
+        <img src="images/ellipse.svg">
+        <span>BOTF presents a new kind of credit card                        with special conditions</span>
+        <br>
+        <span class="dateClass">April 15</span>
+    </div>
+</div>
+
+<div class="exchangeRatesBlock blockStyle">
+    <span class="boxTtitle additionalPadding">Exchange rates</span>
+    <br>
+    <br>
+    <span class="exchangeSubTitile">Exchange rate on April 27</span>
+    <br>
+    <div class="exchangeCourse">
+        <span>USD        </span>
+        <img src="images/arrow-down.svg"/>
+        <span>61.20        </span>
+        <img src="images/arrow-up.svg"/>
+        <span>64.20</span>
+    </div>
+    <br>
+    <br>
+    <div class="exchangeCourse">
+        <span>EUR        </span>
+        <img src="images/arrow-down.svg"/>
+        <span>74.50        </span>
+        <img src="images/arrow-up.svg"/>
+        <span>77.50</span>
+    </div>
+</div>
+
+<div class="accountDetailBlock blockStyle">
+    <span class="boxTtitle">Enter your details to make a appointment at the nearest bank</span>
+    <input type="text" id="accountName" class="accountInfoInput" placeholder="Name">
+    <input type="text" id="accountPhone" class="accountInfoInput" placeholder="Phone">
+    <div class="custom-select accountInfoInput accountInfoSelect" style="width:676px;">
+        <select id="accountReason">
+            <option disabled selected>Reasons</option>
+            <option value="1">First Reason</option>
+            <option value="2">Second Reason</option>
+        </select>
+    </div>
+    <button class="accountInfoButton" onclick="signup()" style="display: none;">Make appointment</button>
+    <div id="smsSuccessful" class="successBlock">
+        <img src="images/sms-successful.png"/>
+        <span class="success">SMS with instruction successfully sent</span>
+    </div>
+</div>
