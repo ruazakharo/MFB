@@ -45,15 +45,13 @@
     <span class="boxTtitle">Enter your details to make a appointment at the nearest bank</span>
     <input type="text" id="accountName" class="accountInfoInput" placeholder="Name">
     <input type="text" id="accountPhone" class="accountInfoInput" placeholder="Phone">
-    <div class="custom-select accountInfoInput accountInfoSelect" style="width:676px;">
-        <select id="accountReason">
-            <option disabled selected>Reasons</option>
-            <option value="1">First Reason</option>
-            <option value="2">Second Reason</option>
+    <div class="custom-select accountInfoInput accountInfoSelect">
+        <select id="accountReasons">
+            <option disabled selected>Reasons:</option>
         </select>
     </div>
-    <button class="accountInfoButton" onclick="signup()" style="display: none;">Make appointment</button>
-    <div id="smsSuccessful" class="successBlock">
+    <button id="accountInfoButton" class="accountInfoButton" onclick="signup()">Make appointment</button>
+    <div id="smsSuccessful" class="successBlock" style="display: none;">
         <img src="images/sms-successful.png"/>
         <span class="success">SMS with instruction successfully sent</span>
     </div>

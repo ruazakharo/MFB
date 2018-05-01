@@ -18,7 +18,7 @@
 .newsBlock {
     display: flex;
     flex-direction: column;
-    flex: 1;
+    flex: 0 0 377px;
     margin-left: 180px;
     margin-right: 13px;
 }
@@ -26,14 +26,14 @@
 .exchangeRatesBlock {
     display: flex;
     flex-direction: column;
-    flex: 1;
+    flex: 0 0 377px;
     margin-right: 13px;
     margin-left: 13px;
 }
 
 .accountDetailBlock {
     display: flex;
-    flex: 2;
+    flex: 0 0 600px;
     flex-direction: column;
     justify-content: space-around;
     align-items: flex-start;

@@ -10,6 +10,7 @@ import { errorHandler as ErrorHandler } from './middleware/error-handler';
 import { sendResponseFromPromise as SendPromisedResponse } from './middleware/response-promise';
 
 import * as Mongo from './db/mongo';
+import * as Path from 'path'
 
 Log4js.configure(Config.get<Log4js.Configuration>('logging'));
 const logger = Log4js.getLogger('server.core');
@@ -29,6 +30,11 @@ async function initialize(): Promise<void> {
         Mongo.initialize()
     ]);
 }
+
+app.use(Express.static(Path.join(__dirname + '../../../WebSite/', '')));
+app.get('/', function(req,res) {
+    res.sendFile(Path.join(__dirname + '../../../WebSite/index.html'));
+})
 
 initialize()
 .then(() => {
