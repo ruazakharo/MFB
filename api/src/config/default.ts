@@ -1,4 +1,11 @@
 export = {
+    queue: {
+        windows: ['1', '2', '3'],
+        refreshInterval: 500,
+        fillQueueSize: 7,
+        minServiceTime: 10 * 1000,
+        maxServiceTime: 30 * 1000
+    },
     logging: {
         appenders: {
             out: {

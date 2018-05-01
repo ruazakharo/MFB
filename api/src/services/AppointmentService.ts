@@ -1,4 +1,5 @@
 import * as moment from 'moment';
+import * as Log4js from 'log4js';
 
 import ReasonDAO from '../dao/ReasonDAO';
 import OfficeDAO from '../dao/OfficeDAO';
@@ -7,6 +8,8 @@ import * as AppointmentQueueService from './AppointmentQueueService';
 import * as API from '../models/api';
 import Appointment from '../models/Appointment';
 import { BadRequestError } from '../models/error';
+
+const logger = Log4js.getLogger('services.appointment');
 
 export function getOffices() {
     return OfficeDAO.getMany({});
@@ -113,7 +116,19 @@ export async function checkinForCurrentAppointment(userId: string) {
         }
     });
 
+    await AppointmentQueueService.addUserAppointmentToQueue(userId, updatedApp.id);
+
     return await toApi(updatedApp);
+}
+
+export async function changeAppointmentStatus(appointmentId: string, status: API.AppointmentStatus) {
+    logger.info(`Changing appointment ${appointmentId} to status ${status}`);
+    await AppointmentDAO.updateOne({
+        filterById: appointmentId,
+        update: {
+            status: status
+        }
+    });
 }
 
 export function getCurrentAppointmentQueue(userId: string) {

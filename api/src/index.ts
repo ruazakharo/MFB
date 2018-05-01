@@ -11,6 +11,8 @@ import { sendResponseFromPromise as SendPromisedResponse } from './middleware/re
 
 import * as Mongo from './db/mongo';
 
+import * as AppointmentQueueService from './services/AppointmentQueueService';
+
 Log4js.configure(Config.get<Log4js.Configuration>('logging'));
 const logger = Log4js.getLogger('server.core');
 
@@ -25,9 +27,8 @@ app.use(SendPromisedResponse);
 app.use(ErrorHandler);
 
 async function initialize(): Promise<void> {
-    await Promise.all([
-        Mongo.initialize()
-    ]);
+    await Mongo.initialize();
+    await AppointmentQueueService.initialize();
 }
 
 initialize()
