@@ -7,18 +7,29 @@ $(function(){
     $("#supportMenuContent").load("www/support_menu.html");
     $("#mainMenuContent").load("www/main_menu.html");
     $("#infoContent").load("www/info.html", () => {
+        // create empty select wrapper
         createCustomdSelect();
-        $.get("/appointment/reasons").done((data) => {
-            // update the select here
-        })
+        $.get("botf/api/appointment/reasons").done((reasons) => {
+            // remove empty wrapper
+            $('.select-selected, .select-items').remove();
+            // update original select
+            for (reason of reasons) {
+                $('#accountReasons').append($('<option>', {
+                    value: reason.id,
+                    text: reason.text
+                }));
+            }
+            // create select wrapper with server data
+            createCustomdSelect();
+        });
+
         $("#accountPhone").mask("+7 (999) 999-9999");
     });
 });
 
 
 const isPhoneValid = (phone) => {
-    // simple phone validation (10 digits)
-    const phoneRegex = /^\d{10}$/;
+    const phoneRegex = /^(\+\d)?\d{10}$/;
     return phoneRegex.test(phone)
 }
 
@@ -31,7 +42,7 @@ const getPhone = () => {
 }
 
 const getReasonId = () => {
-    return $("#accountReason .selected").attr('data-option-value');
+    return $('.same-as-selected').attr('option-id');
 }
 
 const signup = () => {
@@ -40,7 +51,7 @@ const signup = () => {
         alert("please enter Name");
         return;
     }
-    const phone = getPhone().replace(/\D/gi, ''); // regex return only numbers after masking
+    const phone = '+' + getPhone().replace(/\D/gi, ''); // regex return only numbers after masking
     if(!isPhoneValid(phone)) {
         alert("please enter valid phone (10 digits)");
         return;
@@ -57,11 +68,18 @@ const signup = () => {
         appointmentReasonId: reasonId
     }
 
-    $.post("/user/sighnup", data)
-        .done(() => {
-            console.log("done request");
-        })
-        .fail(() => {
-            console.log("fail request");
-        })
+    $.ajax({
+        type: 'POST',
+        url: 'botf/api/signup',
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        dataType: 'json',
+        success: function() {
+            $("#accountInfoButton").hide();
+            $("#smsSuccessful").show();
+        },
+        error: function() {
+            alert("fail request");
+        }
+    });
 }
