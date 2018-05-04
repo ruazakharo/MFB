@@ -10,7 +10,6 @@ import { errorHandler as ErrorHandler } from './middleware/error-handler';
 import { sendResponseFromPromise as SendPromisedResponse } from './middleware/response-promise';
 
 import * as Mongo from './db/mongo';
-import * as Path from 'path'
 
 import * as AppointmentQueueService from './services/AppointmentQueueService';
 
@@ -31,11 +30,6 @@ async function initialize(): Promise<void> {
     await Mongo.initialize();
     await AppointmentQueueService.initialize();
 }
-
-app.use(Express.static(Path.join(__dirname + '../../../WebSite/', '')));
-app.get('/', function(req,res) {
-    res.sendFile(Path.join(__dirname + '../../../WebSite/index.html'));
-})
 
 initialize()
 .then(() => {

@@ -9,7 +9,7 @@ $(function(){
     $("#infoContent").load("www/info.html", () => {
         // create empty select wrapper
         createCustomdSelect();
-        $.get("botf/api/appointment/reasons").done((reasons) => {
+        $.get("/api/appointment/reasons").done((reasons) => {
             // remove empty wrapper
             $('.select-selected, .select-items').remove();
             // update original select
@@ -70,7 +70,7 @@ const signup = () => {
 
     $.ajax({
         type: 'POST',
-        url: 'botf/api/signup',
+        url: 'api/signup',
         contentType: 'application/json',
         data: JSON.stringify(data),
         dataType: 'json',
