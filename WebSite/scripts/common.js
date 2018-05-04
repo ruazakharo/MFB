@@ -1,3 +1,5 @@
+var SERVER_URL = 'api';
+
 $(function(){
     $("#sliderContent").load("www/slider.html", () => {
         $('.flexslider').flexslider({
@@ -9,7 +11,7 @@ $(function(){
     $("#infoContent").load("www/info.html", () => {
         // create empty select wrapper
         createCustomdSelect();
-        $.get("/api/appointment/reasons").done((reasons) => {
+        $.get(SERVER_URL + "/appointment/reasons").done((reasons) => {
             // remove empty wrapper
             $('.select-selected, .select-items').remove();
             // update original select
@@ -70,7 +72,7 @@ const signup = () => {
 
     $.ajax({
         type: 'POST',
-        url: 'api/signup',
+        url: SERVER_URL + '/signup',
         contentType: 'application/json',
         data: JSON.stringify(data),
         dataType: 'json',
