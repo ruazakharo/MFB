@@ -73,8 +73,9 @@ export async function getOfficeQueue(): Promise<API.AppointmentQueue> {
     };
 }
 
-export function addUserAppointmentToQueue(userId: string, appointmentId: string) {
+export async function addUserAppointmentToQueue(userId: string, appointmentId: string) {
     pendingAppointments.push({userId, appointmentId});
+    await refreshQueue();
     if (!isQueueSimulationRunning()) {
         startQueueSimulation();
     }
@@ -151,9 +152,9 @@ async function refreshQueue() {
     });
     pendingAppointments = [];
 
-    clients
+    await Promise.all(clients
     .filter(c => c.window)
-    .forEach(c => {
+    .map(async c => {
         const isDone = (c.serviceStartedOn + c.serviceDuration) < moment().valueOf();
         if (!isDone) {
             return;
@@ -162,14 +163,14 @@ async function refreshQueue() {
         logger.info('Service finished for ', c.code);
         _.remove(clients, cc => cc.code === c.code);
         if (c.userId) {
-            AppointmentService.changeAppointmentStatus(c.appointmentId, API.AppointmentStatus.FINISHED);
+            await AppointmentService.changeAppointmentStatus(c.appointmentId, API.AppointmentStatus.FINISHED);
         }
 
         queueChanged = true;
-    });
+    }));
 
 
-    queueConfig.windows.forEach(w => {
+    Promise.all(queueConfig.windows.map(async w => {
         const taken = !!clients.find(c => c.window === w);
         if (taken) {
             return;
@@ -181,11 +182,11 @@ async function refreshQueue() {
             targetClient.window = w;
             targetClient.serviceStartedOn = moment().valueOf();
             if (targetClient.userId) {
-                AppointmentService.changeAppointmentStatus(targetClient.appointmentId, API.AppointmentStatus.IN_SERVICE);
+                await AppointmentService.changeAppointmentStatus(targetClient.appointmentId, API.AppointmentStatus.IN_SERVICE);
             }
             queueChanged = true;
         }
-    });
+    }));
 
     if (!_.some(clients, c => c.userId)) {
         clients = [];
