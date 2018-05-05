@@ -97,6 +97,8 @@ export async function deleteCurrentAppointment(userId: string) {
             status: API.AppointmentStatus.CANCELLED
         }
     });
+
+    return 'ok';
 }
 
 export async function checkinForCurrentAppointment(userId: string) {
