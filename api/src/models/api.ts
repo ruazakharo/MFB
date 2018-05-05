@@ -82,7 +82,7 @@ export interface SignageIdentificationRequest {
 
 export interface SignageIdentification {
     client?: SignageIdentificationClient;
-    ad?: SignageAdvertisment;
+    ads: SignageAdvertisment[];
 }
 
 export interface SignageIdentificationClient {

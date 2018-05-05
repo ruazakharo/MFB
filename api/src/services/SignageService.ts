@@ -20,6 +20,6 @@ export async function getIdentifiedSignage(req: API.SignageIdentificationRequest
 
     return {
         client,
-        ad: client ? ads[1] : ads[0]
+        ads
     };
 }

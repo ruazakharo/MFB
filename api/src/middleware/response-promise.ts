@@ -14,7 +14,7 @@ export function sendResponseFromPromise(req: Express.Request, res: Express.Respo
             if (data) {
                 res.json(data);
             } else {
-                res.status(HttpStatus.NO_CONTENT).end();
+                res.status(HttpStatus.OK).end();
             }
         })
         .catch(next);

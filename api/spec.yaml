@@ -402,11 +402,15 @@ definitions:
         $ref: '#/definitions/PhoneNumber'
   SignageIdentification:
     type: object
+    required:
+      -  ads
     properties:
       client:
         $ref: '#/definitions/SignageIdentificationClient'
-      ad:
-        $ref: '#/definitions/SignageAdvertisment'
+      ads:
+        type: array
+        items:
+          $ref: '#/definitions/SignageAdvertisment'
   SignageIdentificationClient:
     type: object
     required:
