@@ -1,5 +1,9 @@
-ul {
-    line-height: 1.8;
+.newsBlock ul {
+    line-height: 1.5;
+}
+
+.newsBlock li {
+    margin: 10px 0px;
 }
 
 .infoContainer {
