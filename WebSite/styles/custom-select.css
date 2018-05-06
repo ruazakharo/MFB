@@ -38,11 +38,14 @@
     z-index: 99;
 }
 
+.select-items div {
+    background-color: white;
+}
 /*hide the items when the select box is closed:*/
 .select-hide {
     display: none;
 }
 
 .select-items div:hover, .same-as-selected {
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: whitesmoke;
 }

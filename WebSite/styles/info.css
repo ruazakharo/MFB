@@ -1,6 +1,10 @@
+ul {
+    line-height: 1.8;
+}
+
 .infoContainer {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
     height: 396px;
     box-shadow: 0 0 27px 0 rgba(0, 0, 0, 0.14);
@@ -18,33 +22,30 @@
 .newsBlock {
     display: flex;
     flex-direction: column;
-    flex: 0 0 377px;
-    margin-left: 180px;
+    flex: 1;
     margin-right: 13px;
 }
 
 .exchangeRatesBlock {
     display: flex;
     flex-direction: column;
-    flex: 0 0 377px;
+    flex: 1;
     margin-right: 13px;
     margin-left: 13px;
 }
 
 .accountDetailBlock {
     display: flex;
-    flex: 0 0 600px;
+    flex: 1.5;
     flex-direction: column;
     justify-content: space-around;
     align-items: flex-start;
-    margin-right: 180px;
     margin-left: 13px;
 }
 
 .boxTtitle {
-    /* font-family: Gotham; */
-    font-size: 20px;
-    font-weight: 500;
+    font-size: 18px;
+    font-weight: 600;
     font-style: normal;
     font-stretch: normal;
     line-height: 1.3;
@@ -64,9 +65,8 @@
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 20px;
-    /* font-family: Gotham; */
-    font-weight: 500;
+    font-size: 17px;
+    font-weight: 600;
     border-radius: 19px;
 }
 
@@ -88,10 +88,9 @@
 input[type=text] {
     border: none;
     border-bottom: 1px solid rgba(60, 74, 88, 0.3);
-    
-    /* font-family: Gotham; */
+
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     font-style: normal;
     font-stretch: normal;
     line-height: 1.5;
@@ -107,9 +106,8 @@ input[type=text]:focus {
 }
 
 .accountInfoSelect {
-    font-family: system-ui;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     font-style: normal;
     font-stretch: normal;
     line-height: 1.5;
@@ -133,8 +131,7 @@ input[type=text]:focus {
 }
 
 .dateClass {
-    padding-left: 39px;
-    opacity: 0.6;
+    opacity: 0.4;
 }
 
 .listItem img {
@@ -143,7 +140,6 @@ input[type=text]:focus {
 }
 
 .listItem > span {
-    font-family: GothamBook;
     font-size: 14px;
     font-weight: normal;
     font-style: normal;
@@ -156,7 +152,6 @@ input[type=text]:focus {
 
 .exchangeSubTitile {
     opacity: 0.6;
-    font-family: GothamBook;
     font-size: 14px;
     font-weight: normal;
     font-style: normal;
@@ -169,8 +164,10 @@ input[type=text]:focus {
 }
 
 .exchangeCourse {
-    padding-left: 39px;
-    font-family: GothamBook;
+    display: flex;
+    justify-content: space-between;
+
+    padding: 0px 39px;
     font-size: 20px;
     font-weight: normal;
     font-style: normal;
@@ -179,6 +176,7 @@ input[type=text]:focus {
     letter-spacing: normal;
     color: #3c4a58;
     opacity: 0.8;
+    font-weight: 600;
 }
 
 .success {
@@ -197,4 +195,20 @@ input[type=text]:focus {
     display: flex;
     justify-content: space-around;
     align-content: center;
+}
+
+.containerWrapper {
+    display: flex;
+    width: 90%;
+}
+
+.fullWidth {
+    float: left;
+    width: 100%;
+}
+
+.newsFont {
+    font-size: 15px;
+    font-weight: 600;
+    opacity: 0.6;
 }

@@ -1,20 +1,10 @@
-@font-face {
-    font-family: "GothamMedium";
-    src: url('../font/Gotham-Medium.ttf') format('truetype');
+* {
+    font-family: Open Sans;
 }
-
-@font-face {
-    font-family: "GothamBook";
-    src: url('../font/Gotham-Book.ttf') format('truetype');
-}
-
-/* * {
-    font-family: GothamMedium;
-} */
 
 body {
     margin: 0 0 0 0;
-    min-width: 1535px; /* size of the image in the slider*/
+    min-width: 1366px; /* size of the image in the slider*/
 }
 
 .mainFlexContainer {

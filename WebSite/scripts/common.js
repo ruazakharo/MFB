@@ -25,7 +25,7 @@ $(function(){
             createCustomdSelect();
         });
 
-        $("#accountPhone").mask("+7 (999) 999-9999");
+        $("#accountPhone").mask("+9 (999) 999-9999");
     });
 });
 
