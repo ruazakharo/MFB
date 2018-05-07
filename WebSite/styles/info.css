@@ -1,5 +1,6 @@
 .newsBlock ul {
     line-height: 1.5;
+    margin-right: 20px;
 }
 
 .newsBlock li {
@@ -56,6 +57,7 @@
     letter-spacing: normal;
     color: #3c4a58;
     margin-left: 39px;
+    margin-right: 39px;
     margin-top: 10px;
     opacity: 0.9;
 }
@@ -65,7 +67,7 @@
     background-color: #0ba9e3;
     border: none;
     color: white;
-    padding: 10px 35px;
+    padding: 5px 35px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -100,7 +102,8 @@ input[type=text] {
     line-height: 1.5;
     letter-spacing: normal;
     text-align: left;
-    color: rgba(60, 74, 88, 0.5);
+    color: rgba(60, 74, 88);
+    opacity: 0.7;
 }
 
 input[type=text]:focus {
@@ -184,7 +187,7 @@ input[type=text]:focus {
 }
 
 .success {
-    font-size: 20px;
+    font-size: 17px;
     font-weight: 500;
     font-style: normal;
     font-stretch: normal;
@@ -203,7 +206,7 @@ input[type=text]:focus {
 
 .containerWrapper {
     display: flex;
-    width: 90%;
+    width: 95%;
 }
 
 .fullWidth {
