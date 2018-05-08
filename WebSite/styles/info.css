@@ -102,8 +102,7 @@ input[type=text] {
     line-height: 1.5;
     letter-spacing: normal;
     text-align: left;
-    color: rgba(60, 74, 88);
-    opacity: 0.7;
+    -webkit-text-fill-color: rgba(60, 74, 88, 0.5);
 }
 
 input[type=text]:focus {
@@ -120,7 +119,7 @@ input[type=text]:focus {
     line-height: 1.5;
     letter-spacing: normal;
     text-align: left;
-    color: rgba(60, 74, 88, 0.5);
+    -webkit-text-fill-color: rgba(60, 74, 88, 0.5);
     border-bottom: 1px solid rgba(60, 74, 88, 0.3);
 }
 
