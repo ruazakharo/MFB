@@ -41,10 +41,7 @@ export async function initialize() {
         });
     }
 
-    const clients = await getQueueClients();
-    if (_.some(clients, c => c.userId)) {
-        startQueueSimulation();
-    }
+    startQueueSimulation();
 }
 
 
@@ -76,9 +73,6 @@ export async function getOfficeQueue(): Promise<API.AppointmentQueue> {
 export async function addUserAppointmentToQueue(userId: string, appointmentId: string) {
     pendingAppointments.push({userId, appointmentId});
     await refreshQueue();
-    if (!isQueueSimulationRunning()) {
-        startQueueSimulation();
-    }
 }
 
 function isQueueSimulationRunning() {
@@ -113,6 +107,9 @@ function getNewQueueCode() {
 
     const codeIdStr = _.padStart(codeId.toString(), 4, '0');
     codeId++;
+    if (codeId >= 1000) {
+        codeId = 0;
+    }
     return prefixes[prefixIdx] + codeIdStr;
 }
 
@@ -121,23 +118,24 @@ function getRandomServiceDuration() {
 }
 
 async function refreshQueue() {
-    let clients = await getQueueClients();
+    const clients = await getQueueClients();
     let queueChanged = false;
 
-    pendingAppointments.forEach(pa => {
-        while (clients.length < queueConfig.fillQueueSize) {
-            const code = getNewQueueCode();
-            logger.info('Adding mock user to the queue: ', code);
-            clients.push({
-                userId: null,
-                appointmentId: null,
-                code,
-                window: null,
-                serviceDuration: getRandomServiceDuration(),
-                serviceStartedOn: null
-            });
-        }
+    while (clients.length < queueConfig.fillQueueSize) {
+        const code = getNewQueueCode();
+        logger.info('Adding mock user to the queue: ', code);
+        clients.push({
+            userId: null,
+            appointmentId: null,
+            code,
+            window: null,
+            serviceDuration: getRandomServiceDuration(),
+            serviceStartedOn: null
+        });
+        queueChanged = true;
+    }
 
+    pendingAppointments.forEach(pa => {
         const code = getNewQueueCode();
         logger.info(`Adding pending user appointment to queue: ${JSON.stringify(pa)}, code: ${code}`);
         clients.push({
@@ -187,12 +185,6 @@ async function refreshQueue() {
             queueChanged = true;
         }
     }));
-
-    if (!_.some(clients, c => c.userId)) {
-        clients = [];
-        queueChanged = true;
-        stopQueueSimulation();
-    }
 
     if (queueChanged) {
         await updateQueueClients(clients);
