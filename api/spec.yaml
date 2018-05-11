@@ -296,7 +296,7 @@ definitions:
         type: string
       name:
         type: string
-        example: BOTF Downtown
+        example: MBF Downtown
       address:
         type: string
         example: '1556 Broadway, sute 416\nNew York, NY, 10120, USA'

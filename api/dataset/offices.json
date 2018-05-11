@@ -1,6 +1,6 @@
 [
     {
-        "name": "BOTF South",
+        "name": "MBF South",
         "address": "1556 Broadway, sute 416\nNew York, NY, 10120, USA",
         "location": {
             "longitude": 44.0452984,
@@ -9,7 +9,7 @@
         "openTime": "Today till 7.00PM"
     },
     {
-        "name": "BOTF North",
+        "name": "MBF North",
         "address": "1556 Broadway, sute 416\nNew York, NY, 10120, USA",
         "location": {
             "longitude": 44.0452984,
@@ -18,7 +18,7 @@
         "openTime": "Today till 7.00PM"
     },
     {
-        "name": "BOTF Downtown",
+        "name": "MBF Downtown",
         "address": "1556 Broadway, sute 416\nNew York, NY, 10120, USA",
         "location": {
             "longitude": 44.0452984,
@@ -27,7 +27,7 @@
         "openTime": "Today till 7.00PM"
     },
     {
-        "name": "BOTF Downtown 2",
+        "name": "MBF Downtown 2",
         "address": "1556 Broadway, sute 416\nNew York, NY, 10120, USA",
         "location": {
             "longitude": 44.0452984,
@@ -36,7 +36,7 @@
         "openTime": "Today till 7.00PM"
     },
     {
-        "name": "BOTF North 2",
+        "name": "MBF North 2",
         "address": "1556 Broadway, sute 416\nNew York, NY, 10120, USA",
         "location": {
             "longitude": 44.0452984,
