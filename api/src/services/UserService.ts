@@ -1,10 +1,18 @@
 import * as Log4js from 'log4js';
+import * as Config from 'config';
+import * as _ from 'lodash';
 
 import * as API from '../models/api';
 import * as TokenService from './TokenService';
 import * as AppointmentService from './AppointmentService';
+import * as SmsSenderService from './SmsSenderService';
 import UserDAO from '../dao/UserDAO';
 import { BadRequestError, NotAuthorizedError, NotFoundError } from '../models/error';
+
+type UserServiceConfig = {
+    welcomeMessageText: string;
+};
+const serviceConfig = Config.get<UserServiceConfig>('user');
 
 const logger = Log4js.getLogger('services.user');
 
@@ -36,6 +44,12 @@ export async function signupUser(req: API.SignupRequest) {
                 phoneNumber
             }
         });
+
+        const message = _.template(serviceConfig.welcomeMessageText)({
+            name: req.name
+        });
+
+        SmsSenderService.sendMessage(user.phoneNumber, message);
     }
 
     return AppointmentService.createAppointment(user.id, {

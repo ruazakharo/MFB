@@ -32,9 +32,11 @@
     "mongodb": "3.0.7",
     "swaggerize-express": "4.0.5",
     "swaggerize-ui": "1.0.1",
+    "twilio": "3.16.0",
     "yargs": "11.0.0"
   },
   "devDependencies": {
+    "@types/twilio": "0.0.9",
     "rimraf": "2.6.2",
     "tslint": "5.9.1",
     "typescript": "2.8.3"

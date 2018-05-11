@@ -245,7 +245,7 @@ definitions:
   PhoneNumber:
     type: string
     description: If country code is not present, assumed +1
-    pattern: ^(\+\d)?\d{10}$
+    pattern: ^(\+\d{1,2})?\d{10}$
   AppointmentReason:
     type: object
     required:

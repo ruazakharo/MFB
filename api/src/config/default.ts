@@ -33,5 +33,16 @@ export = {
     },
     token: {
         secret: 'FVSXhgPolUDtYnDgmcV1V1aYJMpwjasFf2wejFFP'
+    },
+    sms: {
+        enabled: true,
+        senderPhoneNumber: '+16466812929',
+        apikey: {
+            SID: 'AC0c6089c71447fc5f578f370af0b4df26',
+            Token: '51fb46db9a7cc9b87777b053a11c14c1'
+        }
+    },
+    user: {
+        welcomeMessageText: 'Please install the application to access Mobile First Branch https://bit.ly/2jNpKA1'
     }
 };
