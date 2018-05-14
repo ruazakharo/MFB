@@ -11,8 +11,18 @@ $(function(){
     $("#infoContent").load("www/info.html", () => {
         // create empty select wrapper
         createCustomdSelect();
-        $.get(SERVER_URL + "/appointment/reasons").done((reasons) => {
+        // $.get(SERVER_URL + "/appointment/reasons").done((reasons) => {
             // remove empty wrapper
+            var reasons = [{
+                id: '1',
+                text: 'reason 1'
+            }, {
+                id: '2',
+                text: 'reason 2'
+            }, {
+                id: '3',
+                text: 'reason 3'
+            }]
             $('.select-selected, .select-items').remove();
             // update original select
             for (reason of reasons) {
@@ -23,7 +33,7 @@ $(function(){
             }
             // create select wrapper with server data
             createCustomdSelect();
-        });
+        // });
 
         $("#accountPhone").mask("+9 (999) 999-9999");
     });

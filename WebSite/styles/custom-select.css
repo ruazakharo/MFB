@@ -9,6 +9,11 @@
 
 .select-selected {
     background-color: white;
+    color: #3c4a58;
+}
+
+.select-selected.empty {
+    color: rgba(60, 74, 88, 0.5);
 }
 
 /*style the arrow inside the select element:*/
@@ -36,10 +41,15 @@
     left: 0;
     right: 0;
     z-index: 99;
+
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgba(60, 74, 88, 0.3);
 }
 
 .select-items div {
     background-color: white;
+    padding: 2px;
 }
 /*hide the items when the select box is closed:*/
 .select-hide {

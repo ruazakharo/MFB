@@ -6,7 +6,7 @@ createCustomdSelect = () => {
         selElmnt = x[i].getElementsByTagName("select")[0];
         /*for each element, create a new DIV that will act as the selected item:*/
         a = document.createElement("DIV");
-        a.setAttribute("class", "select-selected");
+        a.setAttribute("class", "select-selected empty");
         a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
         x[i].appendChild(a);
         /*for each element, create a new DIV that will contain the option list:*/
@@ -23,6 +23,7 @@ createCustomdSelect = () => {
             c.innerHTML = selElmnt.options[j].innerHTML;
             c.setAttribute('option-id', selElmnt[j].attributes.value.value)
             c.addEventListener("click", function(e) {
+                a.setAttribute("class", "select-selected");
                 /*when an item is clicked, update the original select box,
                 and the selected item:*/
                 var y, i, k, s, h;
