@@ -1,7 +1,7 @@
 .supportMenuContainer {
     display: flex;
     flex-direction: row;
-    height: 26px;
+    height: 30px;
     background: #056498;
     opacity: 0.4;
     justify-content: space-around;
@@ -24,11 +24,12 @@
 }
 
 .supportMenuContainer a {
-    font-size: 11px;
-    font-weight: 700;
+    font-size: 14px;
+    font-weight: 500;
     text-align: center;
     color: #ffffff;
     text-decoration: none;
     padding: 0px 10px 0px 10px;
     opacity: 0.9;
+    line-height: 3.13
 }

@@ -2,9 +2,9 @@
     font-family: Open Sans;
 }
 
-body {
-    margin: 0 0 0 0;
+html, body {
     min-width: 1280px;
+    margin: 0;
 }
 
 .mainFlexContainer {
@@ -14,16 +14,17 @@ body {
 }
 
 .flexslider {
-    height: 546px;
-    border: 0px
+    height: 450px;
+    border: 0px;
+    overflow-x: hidden;
 }
 
 .flexslider .slides img {
-    height: 546px;
+    height: 450px;
 }
 
 .sliderContainer {
-    height: 546px;
+    height: 450px;
     align-items: stretch;
 }
 

@@ -102,7 +102,11 @@ input[type=text] {
     line-height: 1.5;
     letter-spacing: normal;
     text-align: left;
-    -webkit-text-fill-color: rgba(60, 74, 88, 0.5);
+    color: #3c4a58;
+}
+
+input[type=text]::placeholder {
+    color: rgba(60, 74, 88, 0.5);
 }
 
 input[type=text]:focus {
