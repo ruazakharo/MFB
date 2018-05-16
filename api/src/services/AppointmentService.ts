@@ -39,7 +39,7 @@ export async function createAppointment(userId: string, req: API.AppointmentRequ
             status: API.AppointmentStatus.ASSIGNED,
             reasonId: req.reasonId,
             officeId: req.officeId,
-            date: 'Today, May 1',
+            date: 'Today',
             time: 'Before 7 PM'
         }
     });

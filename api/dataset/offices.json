@@ -1,46 +1,46 @@
 [
     {
-        "name": "MBF South",
-        "address": "1556 Broadway, sute 416\nNew York, NY, 10120, USA",
+        "name": "Mobile First Branch South",
+        "address": "3030 Surf Ave Brooklyn \nNew York, NY, 11224, USA",
         "location": {
-            "longitude": 44.0452984,
-            "latitude": 56.3044765
+            "longitude": 40.5721616,
+            "latitude": -73.9976795
         },
         "openTime": "Today till 7.00PM"
     },
     {
-        "name": "MBF North",
-        "address": "1556 Broadway, sute 416\nNew York, NY, 10120, USA",
+        "name": "Mobile First Branch North",
+        "address": "4040 Carpenter Ave Bronx\nNew York, NY, 10466, USA",
         "location": {
-            "longitude": 44.0452984,
-            "latitude": 56.3044765
+            "longitude": 40.8905273,
+            "latitude": -73.8627164
         },
         "openTime": "Today till 7.00PM"
     },
     {
-        "name": "MBF Downtown",
-        "address": "1556 Broadway, sute 416\nNew York, NY, 10120, USA",
+        "name": "Mobile First Branch Downtown",
+        "address": "114 E 3rd St\nNew York, NY, 10009, USA",
         "location": {
-            "longitude": 44.0452984,
-            "latitude": 56.3044765
+            "longitude": 40.7239812,
+            "latitude": -73.9876493
         },
         "openTime": "Today till 7.00PM"
     },
     {
-        "name": "MBF Downtown 2",
-        "address": "1556 Broadway, sute 416\nNew York, NY, 10120, USA",
+        "name": "Mobile First Branch Downtown 2",
+        "address": "68 Barrow St\nNew York, NY, 10014, USA",
         "location": {
-            "longitude": 44.0452984,
-            "latitude": 56.3044765
+            "longitude": 40.731782,
+            "latitude": -74.0061651
         },
         "openTime": "Today till 7.00PM"
     },
     {
-        "name": "MBF North 2",
-        "address": "1556 Broadway, sute 416\nNew York, NY, 10120, USA",
+        "name": "Mobile First Branch North 2",
+        "address": "4730 Fieldston Rd Bronx\nNew York, NY, 10471, USA",
         "location": {
-            "longitude": 44.0452984,
-            "latitude": 56.3044765
+            "longitude": 40.8961185,
+            "latitude": -73.9028651
         },
         "openTime": "Today till 7.00PM"
     }
