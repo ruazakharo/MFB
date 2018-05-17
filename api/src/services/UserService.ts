@@ -44,13 +44,13 @@ export async function signupUser(req: API.SignupRequest) {
                 phoneNumber
             }
         });
-
-        const message = _.template(serviceConfig.welcomeMessageText)({
-            name: req.name
-        });
-
-        SmsSenderService.sendMessage(user.phoneNumber, message);
     }
+
+    const message = _.template(serviceConfig.welcomeMessageText)({
+        name: req.name
+    });
+
+    SmsSenderService.sendMessage(user.phoneNumber, message);
 
     return AppointmentService.createAppointment(user.id, {
         reasonId: req.appointmentReasonId,
