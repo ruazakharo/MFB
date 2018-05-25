@@ -351,6 +351,10 @@ paths:
           required: true
           description: requestId
           type: string
+        - in: body
+          name: body
+          schema:
+            $ref: '#/definitions/BankerRequestStatus'
       responses:
         204:
           description: OK
@@ -358,6 +362,39 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Error'
+  /greeter/events:
+    get:
+      summary: Get greeter events
+      responses:
+        200:
+          description: Events
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Event'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Error'
+  /banker/${bankerId}/events:
+    get:
+      summary: Get banker events
+      parameters:
+        - in: path
+          name: bankerId
+          required: true
+          type: string
+      responses:
+        200:
+          description: Events
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Event'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Error'  
 definitions:
   Error:
     type: object
@@ -640,3 +677,24 @@ definitions:
         type: string
       status:
         $ref: '#/definitions/BankerRequestStatus'
+  EventType:
+    type: string
+    x-ts-enum: EventType
+    enum:
+      - CLIENT_AT_SIGNAGE
+      - BANKER_REQUEST
+      - BANKER_REQUEST_RESPONSE
+  Event:
+    type: object
+    required:
+      - id
+      - type
+    properties:
+      id:
+        type: string
+      type:
+        $ref: '#/definitions/EventType'
+      clientInfo:
+        $ref: '#/definitions/ClientInfo'
+      bankerRequest:
+        $ref: '#/definitions/BankerRequest'
