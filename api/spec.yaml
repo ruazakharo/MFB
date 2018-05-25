@@ -118,6 +118,24 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Error'
+  /user/presence:
+    put:
+      security:
+        - token: []
+      summary: Update user presence in the bank
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/ClientPresence'
+      responses:
+        204:
+          description: Updated successfully
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Error'
   /user/appointments/current:
     get:
       tags:
@@ -234,6 +252,112 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Error'
+  /clients:
+    get:
+      summary: Get list of current clients
+      responses:
+        200:
+          description: Client list
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ClientInfo'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Error'
+  /bankers:
+    get:
+      summary: Get list of active bankers
+      responses:
+        200:
+          description: Bankers list
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/BankerInfo'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Error'
+  /bankers/${bankerId}/status:
+    put:
+      summary: Update banker status
+      parameters:
+        - in: path
+          name: bankerId
+          required: true
+          type: string
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/BankerStatus'
+      responses:
+        204:
+          description: status updated
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Error'
+  /bankers/requests:
+    get:
+      summary: Get active banker requests
+      parameters:
+        - in: query
+          name: bankerId
+          required: false
+          type: string
+        - in: query
+          name: status
+          required: false
+          type: string
+        - in: query
+          name: clientId
+          required: false
+          type: string
+      responses:
+        200:
+          description: Requests list
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/BankerRequest'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: Create a new banker request
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/BankerRequest'
+      responses:
+        204:
+          description: OK
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Error'
+  /bankers/requests/${requestId}/status:
+    put:
+      summary: Update request status
+      parameters:
+        - in: path
+          name: requestId
+          required: true
+          description: requestId
+          type: string
+      responses:
+        204:
+          description: OK
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Error'
 definitions:
   Error:
     type: object
@@ -251,11 +375,14 @@ definitions:
     required:
       - id
       - text
+      - isPersonalService
     properties:
       id:
         type: string
       text:
         type: string
+      isPersonalService:
+        type: boolean
   SignupRequest:
     type: object
     required:
@@ -437,3 +564,79 @@ definitions:
         type: string
       pictureUrl:
         type: string
+  ClientPresence:
+    type: object
+    properties:
+      updatedOn:
+        type: number
+      bank:
+        type: boolean
+      signage:
+        type: boolean
+  ClientInfo:
+    type: object
+    required:
+      - id
+      - name
+      - phoneNumber
+      - presence
+      - currentAppointmnet
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      phoneNumber:
+        $ref: '#/definitions/PhoneNumber'
+      presence:
+        $ref: '#/definitions/ClientPresence'
+      currentAppointment:
+        description: Either ASSINGED or CHECKED_IN appointment if exists
+        $ref: '#/definitions/Appointment'
+  BankerStatus:
+    type: string
+    x-ts-enum: BankerStatus
+    enum:
+      - READY
+      - BUSY
+      - OFFLINE
+  BankerInfo:
+    type: object
+    required:
+      - id
+      - name
+      - specialty
+      - status
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      specialty:
+        type: string
+      status:
+        $ref: '#/definitions/BankerStatus'
+  BankerRequestStatus:
+    type: string
+    x-ts-enum: BankerRequestStatus
+    enum:
+      - PENDING
+      - BUSY
+      - READY
+      - READY_LATER
+      - FINISHED
+  BankerRequest:
+    type: object
+    required:
+      - bankerId
+      - clientId
+      - status
+    properties:
+      id:
+        type: string
+      bankerId:
+        type: string
+      clientId:
+        type: string
+      status:
+        $ref: '#/definitions/BankerRequestStatus'
