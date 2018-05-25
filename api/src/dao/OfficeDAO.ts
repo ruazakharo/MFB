@@ -8,7 +8,7 @@ const logger = Log4js.getLogger('dao.office');
 
 class OfficeDAO extends BaseDAO<AppointmentOffice> {
     constructor() {
-        super(logger, 'offices');
+        super(logger, 'offices', true);
     }
 }
 

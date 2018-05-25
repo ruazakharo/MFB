@@ -8,7 +8,7 @@ const logger = Log4js.getLogger('dao.reason');
 
 class ReasonDAO extends BaseDAO<AppointmentReason> {
     constructor() {
-        super(logger, 'reasons');
+        super(logger, 'reasons', true);
     }
 }
 

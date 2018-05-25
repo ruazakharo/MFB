@@ -9,6 +9,7 @@ export type PhoneNumber = string;
 export interface AppointmentReason {
     id: string;
     text: string;
+    isPersonalService: boolean;
 }
 
 export interface SignupRequest {
@@ -95,5 +96,60 @@ export interface SignageAdvertisment {
     shortText: string;
     fullText: string;
     pictureUrl: string;
+}
+
+export interface ClientPresence {
+    updatedOn?: number;
+    bank?: boolean;
+    signage?: boolean;
+}
+
+export interface ClientInfo {
+    id: string;
+    name: string;
+    phoneNumber: PhoneNumber;
+    presence: ClientPresence;
+    currentAppointment?: Appointment;
+}
+
+export enum BankerStatus {
+    READY = <any>'READY',
+    BUSY = <any>'BUSY',
+    OFFLINE = <any>'OFFLINE'
+}
+
+export interface BankerInfo {
+    id: string;
+    name: string;
+    specialty: string;
+    status: BankerStatus;
+}
+
+export enum BankerRequestStatus {
+    PENDING = <any>'PENDING',
+    BUSY = <any>'BUSY',
+    READY = <any>'READY',
+    READY_LATER = <any>'READY_LATER',
+    FINISHED = <any>'FINISHED'
+}
+
+export interface BankerRequest {
+    id?: string;
+    bankerId: string;
+    clientId: string;
+    status: BankerRequestStatus;
+}
+
+export enum EventType {
+    CLIENT_AT_SIGNAGE = <any>'CLIENT_AT_SIGNAGE',
+    BANKER_REQUEST = <any>'BANKER_REQUEST',
+    BANKER_REQUEST_RESPONSE = <any>'BANKER_REQUEST_RESPONSE'
+}
+
+export interface Event {
+    id: string;
+    type: EventType;
+    clientInfo?: ClientInfo;
+    bankerRequest?: BankerRequest;
 }
 

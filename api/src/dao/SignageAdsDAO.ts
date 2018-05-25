@@ -8,7 +8,7 @@ const logger = Log4js.getLogger('dao.signageads');
 
 class SignageAdsDAO extends BaseDAO<SignageAdvertisment> {
     constructor() {
-        super(logger, 'signageads');
+        super(logger, 'signageads', true);
     }
 }
 

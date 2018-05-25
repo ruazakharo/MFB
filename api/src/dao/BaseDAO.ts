@@ -80,11 +80,13 @@ export interface PaginatedResult<M> {
 
 export abstract class BaseDAO<M extends ModelId> {
     private collection: Mongo.Collection;
+    private dontTransformIds: boolean;
 
-    constructor(private logger: Log4js.Logger, collectionName: string) {
+    constructor(private logger: Log4js.Logger, collectionName: string, dontTransformIds?: boolean) {
         MongoHelper.onConnected(db => {
             this.collection = db.collection(collectionName);
         });
+        this.dontTransformIds = !!dontTransformIds;
     }
 
     async insertOne(options: InsertOptions<M>): Promise<M> {
@@ -272,6 +274,12 @@ export abstract class BaseDAO<M extends ModelId> {
             return undefined;
         }
 
+        if (this.dontTransformIds) {
+            const doc = _.clone(model) as T & { _id?: any; };
+            delete doc._id;
+            return model;
+        }
+
         const doc = _.clone(model) as T & { _id?: any; };
         if (_.isString(model.id)) {
             doc._id = new Mongo.ObjectID(model.id);
@@ -292,7 +300,9 @@ export abstract class BaseDAO<M extends ModelId> {
 
     private transformDocumentToModel(doc: Document<M>): M {
         if (doc._id) {
-            doc.id = doc._id.toString();
+            if (!this.dontTransformIds) {
+                doc.id = doc._id.toString();
+            }
             delete doc._id;
         }
 

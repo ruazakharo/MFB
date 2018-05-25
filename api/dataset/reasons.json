@@ -1,14 +1,19 @@
 [
     {
-        "text": "Mortgage"
+        "id": "mortgage",
+        "text": "Mortgage",
+        "isPersonalService": "true"
     },
     {
+        "id": "credit_card",
         "text": "Credit card"
     },
     {
+        "id": "savings",
         "text": "Savings account"
     },
     {
+        "id": "currency",
         "text": "Currency operations"
     }
 ]
