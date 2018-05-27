@@ -1,6 +1,7 @@
 import * as Log4js from 'log4js';
 import * as Config from 'config';
 import * as _ from 'lodash';
+import * as moment from 'moment';
 
 import * as API from '../models/api';
 import * as TokenService from './TokenService';
@@ -41,7 +42,12 @@ export async function signupUser(req: API.SignupRequest) {
         user = await UserDAO.insertOne({
             value: {
                 name: req.name,
-                phoneNumber
+                phoneNumber,
+                presence: {
+                    bank: false,
+                    signage: false,
+                    updatedOn: moment().valueOf()
+                }
             }
         });
     }
@@ -94,4 +100,16 @@ export async function getUserInfo(userId: string): Promise<API.UserInfo> {
         phoneNumber: user.phoneNumber,
         currentAppointment: await AppointmentService.tryGetCurrentAppointment(userId)
     };
+}
+
+export async function updateUserPresence(userId: string, presence: API.ClientPresence) {
+    return UserDAO.updateOne({
+        filterById: userId,
+        update: {
+            presence: {
+                ...presence,
+                updatedOn: moment().valueOf()
+            }
+        }
+    });
 }

@@ -118,9 +118,12 @@ export async function checkinForCurrentAppointment(userId: string) {
         }
     });
 
-    await AppointmentQueueService.addUserAppointmentToQueue(userId, updatedApp.id);
+    const apiApp = await toApi(updatedApp);
+    if (!apiApp.reason.isPersonalService) {
+        await AppointmentQueueService.addUserAppointmentToQueue(userId, updatedApp.id);
+    }
 
-    return await toApi(updatedApp);
+    return apiApp;
 }
 
 export async function changeAppointmentStatus(appointmentId: string, status: API.AppointmentStatus) {
@@ -152,12 +155,13 @@ async function getMockedAppointment(): Promise<API.Appointment> {
     };
 }
 
+export const ACTIVE_APPOINTMENT_STATUSES = [API.AppointmentStatus.ASSIGNED, API.AppointmentStatus.CHECKED_IN, API.AppointmentStatus.IN_SERVICE];
 async function getActiveAppointment(userId: string): Promise<Appointment> {
     const app = await AppointmentDAO.getOne({
         filter: {
             userId: userId,
             status: {
-                $in: [API.AppointmentStatus.ASSIGNED, API.AppointmentStatus.CHECKED_IN, API.AppointmentStatus.IN_SERVICE]
+                $in: ACTIVE_APPOINTMENT_STATUSES
             }
         },
         sort: {
@@ -172,7 +176,7 @@ async function getActiveAppointment(userId: string): Promise<Appointment> {
     return app;
 }
 
-async function toApi(app: Appointment): Promise<API.Appointment> {
+export async function toApi(app: Appointment): Promise<API.Appointment> {
     return {
         id: app.id,
         status: app.status,
