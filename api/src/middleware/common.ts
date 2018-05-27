@@ -16,7 +16,7 @@ export function logger(app: Express.Application) {
 }
 
 export function bodyParser(app: Express.Application) {
-    app.use(BodyParser.json());
+    app.use(BodyParser.json({strict: false}));
 }
 
 export function swagger(app: Express.Application, logger: Log4js.Logger) {

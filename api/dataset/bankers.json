@@ -1,0 +1,26 @@
+[
+    {
+        "id": "b01",
+        "name": "Mr Smith",
+        "specialty": "Credit card specialist",
+        "status": "OFFLINE"
+    },
+    {
+        "id": "b02",
+        "name": "Mrs Smith",
+        "specialty": "Credit card specialist",
+        "status": "OFFLINE"
+    },
+    {
+        "id": "b03",
+        "name": "Mr John",
+        "specialty": "Mortgage specialist",
+        "status": "OFFLINE"
+    },
+    {
+        "id": "b04",
+        "name": "Mr Test John",
+        "specialty": "Credit card specialist",
+        "status": "OFFLINE"
+    }
+]

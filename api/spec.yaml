@@ -280,7 +280,7 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Error'
-  /bankers/${bankerId}/status:
+  /bankers/{bankerId}/status:
     put:
       summary: Update banker status
       parameters:
@@ -342,7 +342,7 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Error'
-  /bankers/requests/${requestId}/status:
+  /bankers/requests/{requestId}/status:
     put:
       summary: Update request status
       parameters:
@@ -376,7 +376,7 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Error'
-  /banker/${bankerId}/events:
+  /banker/{bankerId}/events:
     get:
       summary: Get banker events
       parameters:
