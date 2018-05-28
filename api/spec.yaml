@@ -667,7 +667,6 @@ definitions:
     required:
       - bankerId
       - clientId
-      - status
     properties:
       id:
         type: string

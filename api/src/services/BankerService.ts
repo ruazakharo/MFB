@@ -6,6 +6,7 @@ import * as Mongo from 'mongodb';
 
 import * as API from '../models/api';
 import BankerDAO from '../dao/BankerDAO';
+import BankerRequestDAO from '../dao/BankerRequestDAO';
 import { BadRequestError, NotAuthorizedError, NotFoundError } from '../models/error';
 import Banker from '../models/Banker';
 
@@ -32,6 +33,22 @@ export async function updateBankerStatus(bankerId: string, status: API.BankerSta
             status
         }
     });
+
+    if (status === API.BankerStatus.READY || status === API.BankerStatus.OFFLINE) {
+        await BankerRequestDAO.updateMany({
+            filter: {
+                bankerId: bankerId,
+                status: {
+                    $not: {
+                        $in: [API.BankerRequestStatus.PENDING]
+                    }
+                } as any
+            },
+            update: {
+                status: API.BankerRequestStatus.FINISHED
+            }
+        });
+    }
 }
 
 function toApi(b: Banker): API.BankerInfo {
