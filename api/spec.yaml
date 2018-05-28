@@ -334,7 +334,7 @@ paths:
           name: body
           required: true
           schema:
-            $ref: '#/definitions/BankerRequest'
+            $ref: '#/definitions/CreateBankerRequest'
       responses:
         204:
           description: OK
@@ -376,7 +376,7 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Error'
-  /banker/{bankerId}/events:
+  /bankers/{bankerId}/events:
     get:
       summary: Get banker events
       parameters:
@@ -662,18 +662,30 @@ definitions:
       - READY
       - READY_LATER
       - FINISHED
-  BankerRequest:
+  CreateBankerRequest:
     type: object
     required:
       - bankerId
       - clientId
     properties:
-      id:
-        type: string
       bankerId:
         type: string
       clientId:
         type: string
+  BankerRequestInfo:
+    type: object
+    required:
+      - id
+      - bankerInfo
+      - clientInfo
+      - status
+    properties:
+      id:
+        type: string
+      bankerInfo:
+        $ref: '#/definitions/BankerInfo'
+      clientInfo:
+        $ref: '#/definitions/ClientInfo'
       status:
         $ref: '#/definitions/BankerRequestStatus'
   EventType:
@@ -696,4 +708,4 @@ definitions:
       clientInfo:
         $ref: '#/definitions/ClientInfo'
       bankerRequest:
-        $ref: '#/definitions/BankerRequest'
+        $ref: '#/definitions/BankerRequestInfo'

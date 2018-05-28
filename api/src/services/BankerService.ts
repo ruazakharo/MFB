@@ -51,6 +51,16 @@ export async function updateBankerStatus(bankerId: string, status: API.BankerSta
     }
 }
 
+export async function getBankerInfo(bankerId: string): Promise<API.BankerInfo> {
+    const res = await BankerDAO.getOne({
+        filter: {
+            id: bankerId
+        }
+    });
+
+    return await toApi(res);
+}
+
 function toApi(b: Banker): API.BankerInfo {
     return {
         id: b.id,

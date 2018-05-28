@@ -13,6 +13,6 @@ export function get(req: Express.Request, res: Express.Response, next: Function)
 }
 
 export function post(req: Express.Request, res: Express.Response, next: Function) {
-    res.promise = BankerRequestService.createBankerRequest(req.body as API.BankerRequest);
+    res.promise = BankerRequestService.createBankerRequest(req.body as API.CreateBankerRequest);
     next();
 }

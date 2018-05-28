@@ -156,7 +156,7 @@ async function getMockedAppointment(): Promise<API.Appointment> {
 }
 
 export const ACTIVE_APPOINTMENT_STATUSES = [API.AppointmentStatus.ASSIGNED, API.AppointmentStatus.CHECKED_IN, API.AppointmentStatus.IN_SERVICE];
-async function getActiveAppointment(userId: string): Promise<Appointment> {
+export async function getActiveAppointment(userId: string): Promise<Appointment> {
     const app = await AppointmentDAO.getOne({
         filter: {
             userId: userId,

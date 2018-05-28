@@ -7,10 +7,13 @@ import * as API from '../models/api';
 import BankerRequestDAO from '../dao/BankerRequestDAO';
 import { BadRequestError, NotAuthorizedError, NotFoundError } from '../models/error';
 import BankerRequest from '../models/BankerRequest';
+import * as EventService from './EventService';
+import * as BankerService from './BankerService';
+import * as ClientService from './ClientService';
 
 const logger = Log4js.getLogger('services.bankerrequest');
 
-export async function createBankerRequest(req: API.BankerRequest): Promise<API.BankerRequest> {
+export async function createBankerRequest(req: API.CreateBankerRequest): Promise<API.BankerRequestInfo> {
     const res = await BankerRequestDAO.insertOne({
         value: {
             bankerId: req.bankerId,
@@ -19,7 +22,12 @@ export async function createBankerRequest(req: API.BankerRequest): Promise<API.B
         }
     });
 
-    return toApi(res);
+    await EventService.addBankerEvent(req.bankerId, {
+        type: API.EventType.BANKER_REQUEST,
+        bankerRequestId: res.id
+    });
+
+    return await toApi(res);
 }
 
 type BankerRequestFilter = {
@@ -28,7 +36,7 @@ type BankerRequestFilter = {
     status?: API.BankerRequestStatus;
 };
 
-export async function getBankerRequests(filter: BankerRequestFilter): Promise<API.BankerRequest[]> {
+export async function getBankerRequests(filter: BankerRequestFilter): Promise<API.BankerRequestInfo[]> {
     const res = await BankerRequestDAO.getMany({
         filter: _.omitBy({
             clientId: filter.clientId,
@@ -41,7 +49,7 @@ export async function getBankerRequests(filter: BankerRequestFilter): Promise<AP
         }, _.isUndefined) as any
     });
 
-    return res.map(toApi);
+    return Promise.all(res.map(r => toApi(r)));
 }
 
 export async function updateBankerRequestStatus(requestId: string, status: API.BankerRequestStatus) {
@@ -51,13 +59,26 @@ export async function updateBankerRequestStatus(requestId: string, status: API.B
             status
         }
     });
+
+    await EventService.addGreeterEvent({
+        type: API.EventType.BANKER_REQUEST_RESPONSE,
+        bankerRequestId: requestId
+    });
 }
 
-function toApi(r: BankerRequest): API.BankerRequest {
+export async function getBankerRequestInfo(requestId: string): Promise<API.BankerRequestInfo> {
+    const res = await BankerRequestDAO.getOne({
+        filterById: requestId
+    });
+
+    return await toApi(res);
+}
+
+async function toApi(r: BankerRequest): Promise<API.BankerRequestInfo> {
     return {
         id: r.id,
-        bankerId: r.bankerId,
-        clientId: r.clientId,
+        bankerInfo: await BankerService.getBankerInfo(r.bankerId),
+        clientInfo: await ClientService.getClientInfo(r.clientId),
         status: r.status
     };
 }

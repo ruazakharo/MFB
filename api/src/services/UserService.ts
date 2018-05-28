@@ -7,6 +7,7 @@ import * as API from '../models/api';
 import * as TokenService from './TokenService';
 import * as AppointmentService from './AppointmentService';
 import * as SmsSenderService from './SmsSenderService';
+import * as EventService from './EventService';
 import UserDAO from '../dao/UserDAO';
 import { BadRequestError, NotAuthorizedError, NotFoundError } from '../models/error';
 
@@ -103,7 +104,7 @@ export async function getUserInfo(userId: string): Promise<API.UserInfo> {
 }
 
 export async function updateUserPresence(userId: string, presence: API.ClientPresence) {
-    return UserDAO.updateOne({
+    await UserDAO.updateOne({
         filterById: userId,
         update: {
             presence: {
@@ -112,4 +113,11 @@ export async function updateUserPresence(userId: string, presence: API.ClientPre
             }
         }
     });
+
+    if (presence.signage) {
+        await EventService.addGreeterEvent({
+            type: API.EventType.CLIENT_AT_SIGNAGE,
+            clientId: userId
+        });
+    }
 }

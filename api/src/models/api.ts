@@ -133,10 +133,15 @@ export enum BankerRequestStatus {
     FINISHED = <any>'FINISHED'
 }
 
-export interface BankerRequest {
-    id?: string;
+export interface CreateBankerRequest {
     bankerId: string;
     clientId: string;
+}
+
+export interface BankerRequestInfo {
+    id: string;
+    bankerInfo: BankerInfo;
+    clientInfo: ClientInfo;
     status: BankerRequestStatus;
 }
 
@@ -150,6 +155,6 @@ export interface Event {
     id: string;
     type: EventType;
     clientInfo?: ClientInfo;
-    bankerRequest?: BankerRequest;
+    bankerRequest?: BankerRequestInfo;
 }
 
