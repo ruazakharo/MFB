@@ -108,7 +108,8 @@ export async function updateUserPresence(userId: string, presence: API.ClientPre
         filterById: userId,
         update: {
             presence: {
-                ...presence,
+                signage: !!presence.signage,
+                bank: !!presence.bank,
                 updatedOn: moment().valueOf()
             }
         }

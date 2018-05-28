@@ -252,6 +252,22 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Error'
+  /signage/presence:
+    post:
+      summary: Update presence for client
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/SignagePresenceUpdate'
+      responses:
+        204:
+          description: Presence updated
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Error'
   /clients:
     get:
       summary: Get list of current clients
@@ -556,6 +572,16 @@ definitions:
         type: string
         example: 5
       isCurrentUser:
+        type: boolean
+  SignagePresenceUpdate:
+    type: object
+    required:
+      - phoneNumber
+      - visible
+    properties:
+      phoneNumber:
+        $ref: '#/definitions/PhoneNumber'
+      visible:
         type: boolean
   SignageIdentificationRequest:
     type: object

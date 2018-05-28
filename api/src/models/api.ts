@@ -77,6 +77,11 @@ export interface AppointmentQueueClient {
     isCurrentUser?: boolean;
 }
 
+export interface SignagePresenceUpdate {
+    phoneNumber: PhoneNumber;
+    visible: boolean;
+}
+
 export interface SignageIdentificationRequest {
     phoneNumber: PhoneNumber;
 }
