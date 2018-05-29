@@ -144,15 +144,13 @@ export function getOfficeQueue() {
     return AppointmentQueueService.getOfficeQueue();
 }
 
-async function getMockedAppointment(): Promise<API.Appointment> {
-    return {
-        id: 'a123',
-        status: API.AppointmentStatus.ASSIGNED,
-        reason: (await getReasons())[0],
-        office: (await getOffices())[0],
-        date: 'Today, April 30',
-        time: 'Before 7 PM'
-    };
+export async function updateAppointmentStatus(appointmentId: string, status: API.AppointmentStatus) {
+    await AppointmentDAO.updateOne({
+        filterById: appointmentId,
+        update: {
+            status
+        }
+    });
 }
 
 export const ACTIVE_APPOINTMENT_STATUSES = [API.AppointmentStatus.ASSIGNED, API.AppointmentStatus.CHECKED_IN, API.AppointmentStatus.IN_SERVICE];

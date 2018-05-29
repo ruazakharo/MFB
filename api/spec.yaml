@@ -102,6 +102,24 @@ paths:
           description: Error
           schema:
             $ref: '#/definitions/Error'
+  /user/appointments/{appointmentId}/status:
+    put:
+      tags:
+        - user appointment
+      summary: Update appointment status
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/AppointmentStatus'
+      responses:
+        204:
+          description: Appointment updated successfully
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Error'
   /user/info:
     get:
       tags:
