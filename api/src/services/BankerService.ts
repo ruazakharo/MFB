@@ -13,13 +13,7 @@ import Banker from '../models/Banker';
 const logger = Log4js.getLogger('services.banker');
 
 export async function getAvailableBankers(): Promise<API.BankerInfo[]> {
-    const bankers = await BankerDAO.getMany({
-        filter: {
-            status: {
-                $in: [API.BankerStatus.READY]
-            }
-        }
-    });
+    const bankers = await BankerDAO.getMany({});
 
     return bankers.map(toApi);
 }
