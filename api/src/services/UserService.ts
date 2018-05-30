@@ -104,14 +104,20 @@ export async function getUserInfo(userId: string): Promise<API.UserInfo> {
 }
 
 export async function updateUserPresence(userId: string, presence: API.ClientPresence) {
+    const user = await UserDAO.getOne({
+        filterById: userId
+    });
+
+    const newPresence: API.ClientPresence = {
+        signage: _.isBoolean(presence.signage) ? presence.signage : user.presence.signage,
+        bank: _.isBoolean(presence.bank) ? presence.bank : user.presence.bank,
+        updatedOn: moment().valueOf()
+    };
+
     await UserDAO.updateOne({
         filterById: userId,
         update: {
-            presence: _.omitBy({
-                signage: presence.signage,
-                bank: presence.bank,
-                updatedOn: moment().valueOf()
-            }, _.isUndefined)
+            presence: newPresence
         }
     });
 
