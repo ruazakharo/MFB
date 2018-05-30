@@ -107,11 +107,11 @@ export async function updateUserPresence(userId: string, presence: API.ClientPre
     await UserDAO.updateOne({
         filterById: userId,
         update: {
-            presence: {
-                signage: !!presence.signage,
-                bank: !!presence.bank,
+            presence: _.omitBy({
+                signage: presence.signage,
+                bank: presence.bank,
                 updatedOn: moment().valueOf()
-            }
+            }, _.isUndefined)
         }
     });
 
