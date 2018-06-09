@@ -33,6 +33,8 @@ export async function addBankerEvent(bankerId: string, e: Event) {
 }
 
 export async function getGreeterEvents(): Promise<API.Event[]> {
+    await BankerRequestService.updateNonRepliedRequests();
+
     const events = greeterEvents;
     greeterEvents = [];
     return await toApi(events);

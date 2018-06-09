@@ -16,6 +16,7 @@ const logger = Log4js.getLogger('services.bankerrequest');
 export async function createBankerRequest(req: API.CreateBankerRequest): Promise<API.BankerRequestInfo> {
     const res = await BankerRequestDAO.insertOne({
         value: {
+            createdOn: moment().valueOf(),
             bankerId: req.bankerId,
             clientId: req.clientId,
             status: API.BankerRequestStatus.PENDING
@@ -72,6 +73,21 @@ export async function getBankerRequestInfo(requestId: string): Promise<API.Banke
     });
 
     return await toApi(res);
+}
+
+export async function updateNonRepliedRequests() {
+    const pending = await BankerRequestDAO.getMany({
+      filter: {
+        status: API.BankerRequestStatus.PENDING
+      }
+    });
+
+    const WAIT_TIME = 30 * 1000;
+    await Promise.all(
+        pending
+        .filter(r => (moment().valueOf() - r.createdOn) > WAIT_TIME)
+        .map(r => updateBankerRequestStatus(r.id, API.BankerRequestStatus.BUSY))
+    );
 }
 
 async function toApi(r: BankerRequest): Promise<API.BankerRequestInfo> {
