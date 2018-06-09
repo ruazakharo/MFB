@@ -7,6 +7,7 @@ import * as Mongo from 'mongodb';
 import * as API from '../models/api';
 import * as ClientService from './ClientService';
 import * as BankerRequestService from './BankerRequestService';
+import * as BankerService from './BankerService';
 
 const logger = Log4js.getLogger('services.event');
 
@@ -41,6 +42,8 @@ export async function getGreeterEvents(): Promise<API.Event[]> {
 }
 
 export async function getBankerEvents(bankerId: string): Promise<API.Event[]> {
+    await BankerService.updateLastTimeOnline(bankerId);
+
     const events = bankerEvents[bankerId] || [];
     bankerEvents[bankerId] = [];
     return await toApi(events);

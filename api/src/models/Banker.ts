@@ -5,6 +5,7 @@ interface Banker {
     name: string;
     specialty: string;
     status: API.BankerStatus;
+    lastTimeOnlineOn: number;
 }
 
 export default Banker;

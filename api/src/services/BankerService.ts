@@ -13,6 +13,8 @@ import Banker from '../models/Banker';
 const logger = Log4js.getLogger('services.banker');
 
 export async function getAvailableBankers(): Promise<API.BankerInfo[]> {
+    await checkOfflineBankers();
+
     const bankers = await BankerDAO.getMany({});
 
     return bankers.map(toApi);
@@ -43,6 +45,28 @@ export async function updateBankerStatus(bankerId: string, status: API.BankerSta
             }
         });
     }
+}
+
+export async function updateLastTimeOnline(bankerId: string) {
+    await BankerDAO.updateOne({
+        filter: {
+            id: bankerId
+        },
+        update: {
+            lastTimeOnlineOn: moment().valueOf()
+        }
+    });
+}
+
+export async function checkOfflineBankers() {
+    const WAIT_BEFORE_OFFLINE = 10 * 1000;
+
+    const bankers = await BankerDAO.getMany({});
+    await Promise.all(
+        bankers
+        .filter(b => (moment().valueOf() - b.lastTimeOnlineOn > WAIT_BEFORE_OFFLINE))
+        .map(b => updateBankerStatus(b.id, API.BankerStatus.OFFLINE))
+    );
 }
 
 export async function getBankerInfo(bankerId: string): Promise<API.BankerInfo> {
