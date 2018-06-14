@@ -76,6 +76,15 @@
     border-radius: 19px;
 }
 
+.intl-tel-input {
+    align-self: stretch;
+    margin: 0px 39px;
+}
+
+.intl-tel-input.allow-dropdown input {
+    width: 100%;
+}
+
 .accountInfoButton:hover {
     box-shadow: 0 6px 10px 0 rgba(0,0,0,0.24), 0 6px 50px 0 rgba(0,0,0,0.19);
     cursor: pointer;
