@@ -18,7 +18,7 @@ const serviceConfig = Config.get<UserServiceConfig>('user');
 
 const logger = Log4js.getLogger('services.user');
 
-const PHONE_NUMBER_PATTERN = /^(\+\d)?\d{10}$/;
+const PHONE_NUMBER_PATTERN = /^(\+\d{1,2})?\d{10}$/;
 
 export function getNormalizedPhoneNumber(phoneNumber: string) {
     if (!PHONE_NUMBER_PATTERN.exec(phoneNumber)) {
