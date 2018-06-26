@@ -30,6 +30,10 @@ export async function updateBankerStatus(bankerId: string, status: API.BankerSta
         }
     });
 
+    if (status === API.BankerStatus.READY) {
+        await updateLastTimeOnline(bankerId);
+    }
+
     if (status === API.BankerStatus.READY || status === API.BankerStatus.OFFLINE) {
         await BankerRequestDAO.updateMany({
             filter: {
