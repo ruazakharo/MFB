@@ -25,17 +25,17 @@ export = {
             }
         }
     },
-    port: 8000,
+    port: 8100,
     specFilePath: './spec.yaml',
     mongo: {
-        connectionString: 'mongodb://localhost:27017/botf',
+        connectionString: 'mongodb://localhost:27017/mfb',
         options: {}
     },
     token: {
         secret: 'FVSXhgPolUDtYnDgmcV1V1aYJMpwjasFf2wejFFP'
     },
     sms: {
-        enabled: true,
+        enabled: false,
         senderPhoneNumber: '+16466812929',
         apikey: {
             SID: 'AC0c6089c71447fc5f578f370af0b4df26',
