@@ -28,7 +28,7 @@ export function swagger(app: Express.Application, logger: Log4js.Logger) {
     }));
 
     logger.info('Setting up Swagger UI');
-    app.use('/botf/api/api-docs', SwaggerUI({
+    app.use('/mfb/api/api-docs', SwaggerUI({
         docs: 'spec'
     }));
 }
